@@ -25,4 +25,4 @@ jobs:
       - name: Create key.pem
         run: echo ${KEY} | tr -d '\r' > key.pem 
       - name: Deploy in EC2
-        run: ssh -i key.pem ${USER}@${HOST} touch 'llegue'
+        run: ssh -i /home/ulises/Documentos/UTEC/AWS/SGRSoft.pem ubuntu@54.193.166.128 ls /home/ubuntu/*
