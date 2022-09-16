@@ -20,13 +20,9 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Create key.pem
+      - name: chechout
         uses: actions/checkout@v3
-        run: |
-          echo ${KEY} > key.pem
-
+      - name: Create key.pem
+        run: echo ${KEY} > key.pem
       - name: Deploy in EC2
-      - uses: actions/checkout@v3
-        run: |
-          echo ${KEY} > key.pem
-          ssh -i key.pem ${USER}@${HOST} touch llegue
+        run: ssh -i key.pem ${USER}@${HOST} touch llegue
