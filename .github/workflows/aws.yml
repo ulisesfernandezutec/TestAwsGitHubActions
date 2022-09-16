@@ -2,21 +2,25 @@ name: CI/CD AWS TEST
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
-jobs:   
-  deploy: 
+jobs:
+  build:
     runs-on: ubuntu-latest
-
-    steps: 
-      - name: Deploy in EC2 
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOSTNAME  }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.AWS_PRIVATE_KEY  }}
-          script: |
-            touch a
-            cd /home/ubuntu/TestAwsGitHubActions/
-            git pull 
-            docker-compose -f ~/TestAwsGitHubActions/docker-compose.yml up -d --build
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build the Docker Image
+        run: docker build . --file Dockerfile --tag web:$(date +%s)
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy in EC2
+        env:
+          HOST: ${{ secrets.HOSTNAME }}
+          USER: ${{ secrets.USERNAME }}
+          KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
+        run: |
+          echo ${KEY} > key.pem
+          ssh -i key.pem ${USER}@${HOST} touch llegue
