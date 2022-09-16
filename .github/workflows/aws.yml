@@ -24,5 +24,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Create key.pem
         run: echo ${KEY} | tr -d '\r' > key.pem 
+      - name: Check key.pem
+        run: cat key.pem         
       - name: Deploy in EC2
         run: ssh -i key.pem ubuntu@54.193.166.128 ls /home/ubuntu/*
