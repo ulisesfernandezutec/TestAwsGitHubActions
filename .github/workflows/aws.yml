@@ -6,7 +6,7 @@ on:
 
 env:
   HOST: ${{ secrets.HOSTNAME }}
-  USER: ${{ secrets.USERNAME }}
+  USER: ${{ secrets.USER_NAME }}
   KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
 
 jobs:
@@ -27,6 +27,7 @@ jobs:
       - name: Check key.pem
         run: cat key.pem         
       - name: Deploy in EC2
-        run:  ssh -o StrictHostKeyChecking=no -i key.pem ${USER}@${HOST} '
-            touch /home/ubuntu/hi
-        '
+        run:  | 
+            ssh -o StrictHostKeyChecking=no -i key.pem ${USER}@${HOST} '
+                touch /home/ubuntu/hi
+            '
