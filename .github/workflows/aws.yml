@@ -15,7 +15,7 @@ jobs:
       run: docker-compose up -d --build
     
   deploy: 
-    need: build 
+    needs: build 
     runs-on: ubuntu-latest
 
     steps: 
