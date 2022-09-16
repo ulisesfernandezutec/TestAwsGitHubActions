@@ -23,8 +23,10 @@ jobs:
       - name: chechout
         uses: actions/checkout@v3
       - name: Create key.pem
-        run: echo ${KEY} | tr -d '\r' > key.pem 
+        run: echo "$KEY" | tr -d '\r' > key.pem && chmod 600 key.pem
       - name: Check key.pem
         run: cat key.pem         
       - name: Deploy in EC2
-        run: ssh -i key.pem ubuntu@54.193.166.128 ls /home/ubuntu/*
+        run:  ssh -o StrictHostKeyChecking=no -i key.pem ${USER}@${HOST} '
+            touch /home/ubuntu/hi
+        '
