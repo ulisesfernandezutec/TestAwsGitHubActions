@@ -4,14 +4,7 @@ on:
   push:
     branches: [ main ]
 
-jobs:
-  build: 
-    runs-on: ubuntu-latest
- 
-    steps: 
-    - name: Build container_compose
-      run: docker-compose up -d --build
-    
+jobs:   
   deploy: 
     needs: build 
     runs-on: ubuntu-latest
