@@ -24,8 +24,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.AWS_PRIVATE_KEY  }}
           script: |
-            echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-            ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
+            touch a
             cd /home/ubuntu/TestAwsGitHubActions/
             git pull 
-            docker-compose up -d --build
+            docker-compose -f ~/TestAwsGitHubActions/docker-compose.yml up -d --build
