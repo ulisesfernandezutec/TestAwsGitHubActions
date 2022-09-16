@@ -31,5 +31,5 @@ jobs:
             ssh -o StrictHostKeyChecking=no -i key.pem ${USER}@${HOST} '
                 cd /home/ubuntu/TestAwsGitHubActions &&
                 git pull &&
-                docker-compose up --build
+                docker-compose up -d --build
             '
