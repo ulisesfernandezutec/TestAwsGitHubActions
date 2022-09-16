@@ -29,5 +29,6 @@ jobs:
       - name: Deploy in EC2
         run:  | 
             ssh -o StrictHostKeyChecking=no -i key.pem ${USER}@${HOST} '
-                touch /home/ubuntu/hi
+                cd /home/ubuntu/TestAwsGitHubActions
+                docker-compose up --build
             '
